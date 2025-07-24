@@ -1,113 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Admin Dashboard – Luxporter Bookings</title>
-
-  <script type="module">
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js';
-    import { getFirestore, collection, getDocs } from 'https://www.gstatic.com/firebasejs/10.5.2/firebase-firestore.js';
-
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyDTFBc_Clt_U8_rIQj9WkMhSbVwVyhbrY0",
-    authDomain: "the-luxporter-1b27f.firebaseapp.com",
-    projectId: "the-luxporter-1b27f",
-    storageBucket: "the-luxporter-1b27f.firebasestorage.app",
-    messagingSenderId: "843551576120",
-    appId: "1:843551576120:web:a538941e9a33704a5416cd",
-    measurementId: "G-PXRZPZT9H7"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    async function loadBookings() {
-      const bookingsCol = collection(db, 'bookings');
-      const snapshot = await getDocs(bookingsCol);
-      const table = document.getElementById('bookingTable');
-
-      snapshot.forEach(doc => {
-        const data = doc.data();
-        const row = table.insertRow();
-        row.insertCell().innerText = data.pickup;
-        row.insertCell().innerText = data.dropoff;
-        row.insertCell().innerText = data.distance.toFixed(1);
-        row.insertCell().innerText = data.time.toFixed(0);
-        row.insertCell().innerText = data.type;
-        row.insertCell().innerText = data.cls;
-        row.insertCell().innerText = `$${data.price}`;
-        row.insertCell().innerText = data.paymentMethod;
-        row.insertCell().innerText = new Date(data.timestamp).toLocaleString();
-      });
-    }
-
-    function exportToCSV() {
-      const rows = document.querySelectorAll("table tr");
-      const csv = [...rows].map(row =>
-        [...row.querySelectorAll("td, th")]
-          .map(cell => `"${cell.innerText}"`)
-          .join(",")
-      ).join("\n");
-
-      const blob = new Blob([csv], { type: 'text/csv' });
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = "bookings.csv";
-      a.click();
-    }
-
-    window.onload = loadBookings;
-    window.exportToCSV = exportToCSV;
-  </script>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Luxporter Admin Panel</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; }
-    h2 { margin-bottom: 0.5rem; }
-    button {
-      padding: 10px 20px;
-      margin-top: 10px;
-      background: #0055aa;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    button:hover { background: #004488; }
-    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-    th { background: #eee; }
+    body { font-family: Arial, sans-serif; background: #f9f9f9; padding: 40px; }
+    h1 { margin-bottom: 1rem; }
+    p { color: #444; }
   </style>
 </head>
 <body>
-  <h2>Luxporter Booking Dashboard</h2>
-  <button onclick="exportToCSV()">Export to CSV</button>
-  <table id="bookingTable">
-    <tr>
-      <th>Pickup</th>
-      <th>Dropoff</th>
-      <th>Distance (km)</th>
-      <th>Time (min)</th>
-      <th>Type</th>
-      <th>Class</th>
-      <th>Price</th>
-      <th>Payment</th>
-      <th>Date</th>
-    </tr>
-  </table>
+  <script>
+    const password = prompt("Admin access – please enter your password:");
+    if (password !== "admin") {
+      alert("Access denied.");
+      window.location.href = "index.html";
+    }
+  </script>
+
+  <h1>Welcome, King 👑</h1>
+  <p>This page is locked with basic password protection and visible only to you.</p>
+  <p>You may expand this later with Firebase Auth or server-side login.</p>
 </body>
 </html>

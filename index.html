@@ -18,10 +18,9 @@
       </button>
 
       <ul class="nav-links">
-        <li><a href="index.html#services">Services</a></li>
-        <li><a href="index.html#fleet">Fleet</a></li>
-        <li><a href="index.html#contact">Contact</a></li>
-        <li><a href="admin.html">Admin</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#fleet">Fleet</a></li>
+        <li><a href="#contact">Contact</a></li>
         <li><a href="booking.html">Book Now</a></li>
       </ul>
 
@@ -39,6 +38,7 @@
   </header>
 
   <main>
+    <!-- Services Section -->
     <section id="services" class="section services">
       <h2>Our Services</h2>
       <ul class="service-list">
@@ -57,6 +57,7 @@
       </ul>
     </section>
 
+    <!-- Fleet Section -->
     <section id="fleet" class="section fleet">
       <h2>Our Fleet</h2>
       <table>
@@ -87,9 +88,10 @@
       </table>
     </section>
 
+    <!-- Contact Section -->
     <section id="contact" class="section contact">
       <h2>Contact Us</h2>
-      <p>Call us anytime: <a href="tel:+16045059651">+1 604-505-9651</a></p>
+      <p>Call us: <a href="tel:+16045059651">+1 604-505-9651</a></p>
       <p>Email: <a href="mailto:info@theluxuryporter.com">info@theluxuryporter.com</a></p>
     </section>
   </main>
@@ -99,9 +101,8 @@
   </footer>
 
   <script>
-    // Mobile nav toggle
     const navToggle = document.querySelector('.nav-toggle');
-    const navLinks  = document.querySelector('.nav-links');
+    const navLinks = document.querySelector('.nav-links');
     navToggle.addEventListener('click', () => {
       navLinks.classList.toggle('open');
     });
