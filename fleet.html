@@ -1,43 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>The Luxporter | Home</title>
+  <title>The Luxporter | Fleet</title>
   <link rel="stylesheet" href="css/styles.css"/>
 </head>
 <body>
   <header class="site-header">
     <nav class="navbar">
       <a href="index.html" class="logo">
-        <img src="assets/logo.svg" alt="The Luxporter Logo">
+        <img src="assets/logo.svg" alt="Logo">
       </a>
       <button class="nav-toggle" aria-label="Toggle navigation">
         <span class="hamburger"></span>
       </button>
       <ul class="nav-links">
         <li><a href="services.html">Services</a></li>
-        <li><a href="fleet.html">Fleet</a></li>
+        <li><a href="fleet.html" class="active">Fleet</a></li>
         <li><a href="contact.html">Contact</a></li>
         <li><a href="booking.html">Book Now</a></li>
       </ul>
       <a href="booking.html" class="btn btn-primary">Book Now</a>
     </nav>
-
-    <div class="hero">
-      <img src="assets/hero.jpg" alt="Luxury vehicle in Vancouver" />
-      <div class="hero-text">
-        <h1>Arrive in Style with The Luxporter</h1>
-        <p>Premium airport transfers and chauffeur services across Metro Vancouver.</p>
-        <a href="services.html" class="btn btn-secondary">Explore Services</a>
-      </div>
-    </div>
   </header>
 
   <main>
-    <section class="section">
-      <h2>Welcome to The Luxporter</h2>
-      <p>Your premium choice for airport transfers, corporate chauffeur services, and event transportation.</p>
+    <section id="fleet" class="section fleet">
+      <h2>Our Fleet</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Vehicle</th>
+            <th>Capacity</th>
+            <th>Features</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Mercedes S-Class</td>
+            <td>3 passengers</td>
+            <td>Leather, Wi-Fi, Privacy Divider</td>
+          </tr>
+          <tr>
+            <td>Cadillac Escalade</td>
+            <td>6 passengers</td>
+            <td>Spacious, Entertainment System</td>
+          </tr>
+          <tr>
+            <td>Lincoln MKT</td>
+            <td>4 passengers</td>
+            <td>Comfort Plus, Mini-Bar</td>
+          </tr>
+        </tbody>
+      </table>
     </section>
   </main>
 
