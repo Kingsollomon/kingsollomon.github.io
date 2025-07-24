@@ -16,53 +16,83 @@ body {
 /* Header & Navigation */
 .site-header .navbar {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   padding: 1rem 2rem;
   background-color: #111;
+  position: relative;
 }
 
+/* Logo */
+.logo img {
+  height: 40px;
+}
+
+/* Nav links */
 .nav-links {
   list-style: none;
   display: flex;
+  gap: 1.5rem;
 }
 
-.nav-links li {
-  margin-left: 1.5rem;
-}
-
-.nav-links a,
-.btn {
+.nav-links a {
   color: #f5c518;
   text-decoration: none;
   font-weight: bold;
 }
 
+/* Buttons */
+.btn {
+  text-decoration: none;
+  font-weight: bold;
+  color: #f5c518;
+}
 .btn-primary {
   background-color: #f5c518;
   padding: 0.5rem 1.25rem;
   border-radius: 4px;
+  margin-left: 1rem;
 }
-
 .btn-secondary {
   border: 2px solid #f5c518;
   padding: 0.5rem 1.25rem;
   border-radius: 4px;
+  margin-top: 1rem;
 }
 
-/* Hero Section */
+/* Hamburger toggle (hidden desktop) */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: #f5c518;
+  border-radius: 1px;
+  position: relative;
+}
+.hamburger::before { top: -8px; position: absolute; }
+.hamburger::after  { top: 8px;  position: absolute; }
+
+/* Hero */
 .hero {
   position: relative;
   text-align: center;
+  color: #fff;
 }
-
 .hero img {
   width: 100%;
   height: 60vh;
   object-fit: cover;
   opacity: 0.7;
 }
-
 .hero-text {
   position: absolute;
   top: 50%;
@@ -75,31 +105,27 @@ body {
   padding: 4rem 2rem;
   text-align: center;
 }
-
 .service-list {
   display: flex;
   justify-content: center;
   gap: 2rem;
 }
-
 .service-list li {
-  list-style: none;
   max-width: 250px;
+  list-style: none;
 }
 
-/* Fleet Table */
+/* Fleet table */
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 2rem;
 }
-
 th, td {
   border: 1px solid #333;
   padding: 1rem;
   text-align: left;
 }
-
 th {
   background-color: #111;
 }
@@ -109,4 +135,63 @@ th {
   background-color: #111;
   text-align: center;
   padding: 1.5rem;
+}
+
+/* ——— Responsive Rules ——— */
+@media (max-width: 768px) {
+
+  /* Show hamburger, hide links until toggled */
+  .nav-toggle {
+    display: block;
+  }
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #111;
+    flex-direction: column;
+    align-items: center;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+  }
+  .nav-links.open {
+    max-height: 300px;
+    padding-bottom: 1rem;
+  }
+  .nav-links li {
+    margin: 0.75rem 0;
+  }
+  .btn-primary {
+    margin: 1rem 0 0;
+  }
+
+  /* Shrink hero */
+  .hero img {
+    height: 40vh;
+  }
+  .hero-text h1 {
+    font-size: 1.5rem;
+  }
+  .hero-text p {
+    font-size: 1rem;
+  }
+
+  /* Stack services */
+  .service-list {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  /* Table scroll */
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  /* Reduce padding */
+  .section {
+    padding: 2rem 1rem;
+  }
 }
