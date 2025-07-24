@@ -23,12 +23,10 @@ body {
   position: relative;
 }
 
-/* Logo */
 .logo img {
   height: 40px;
 }
 
-/* Nav links */
 .nav-links {
   list-style: none;
   display: flex;
@@ -41,18 +39,19 @@ body {
   font-weight: bold;
 }
 
-/* Buttons */
 .btn {
   text-decoration: none;
   font-weight: bold;
   color: #f5c518;
 }
+
 .btn-primary {
   background-color: #f5c518;
   padding: 0.5rem 1.25rem;
   border-radius: 4px;
   margin-left: 1rem;
 }
+
 .btn-secondary {
   border: 2px solid #f5c518;
   padding: 0.5rem 1.25rem;
@@ -139,8 +138,6 @@ th {
 
 /* ——— Responsive Rules ——— */
 @media (max-width: 768px) {
-
-  /* Show hamburger, hide links until toggled */
   .nav-toggle {
     display: block;
   }
@@ -167,7 +164,6 @@ th {
     margin: 1rem 0 0;
   }
 
-  /* Shrink hero */
   .hero img {
     height: 40vh;
   }
@@ -178,19 +174,16 @@ th {
     font-size: 1rem;
   }
 
-  /* Stack services */
   .service-list {
     flex-direction: column;
     gap: 1.5rem;
   }
 
-  /* Table scroll */
   table {
     display: block;
     overflow-x: auto;
   }
 
-  /* Reduce padding */
   .section {
     padding: 2rem 1rem;
   }
