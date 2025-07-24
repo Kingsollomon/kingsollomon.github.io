@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard - Luxporter Bookings</title>
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js';
+    import { getFirestore, collection, getDocs } from 'https://www.gstatic.com/firebasejs/10.5.2/firebase-firestore.js';
+
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "the-luxporter.firebaseapp.com",
+      projectId: "the-luxporter",
+      storageBucket: "the-luxporter.appspot.com",
+      messagingSenderId: "SENDER_ID",
+      appId: "APP_ID"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    async function loadBookings() {
+      const bookingsCol = collection(db, 'bookings');
+      const snapshot = await getDocs(bookingsCol);
+      const table = document.getElementById('bookingTable');
+
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const row = table.insertRow();
+        row.insertCell().innerText = data.pickup;
+        row.insertCell().innerText = data.dropoff;
+        row.insertCell().innerText = data.distance.toFixed(1);
+        row.insertCell().innerText = data.time.toFixed(0);
+        row.insertCell().innerText = data.type;
+        row.insertCell().innerText = data.cls;
+        row.insertCell().innerText = `$${data.price}`;
+        row.insertCell().innerText = data.paymentMethod;
+        row.insertCell().innerText = new Date(data.timestamp).toLocaleString();
+      });
+    }
+
+    function exportToCSV() {
+      const rows = document.querySelectorAll("table tr");
+      const csv = [...rows].map(row =>
+        [...row.querySelectorAll("td, th")].map(cell => `"${cell.innerText}"`).join(",")
+      ).join("\n");
+
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "bookings.csv";
+      a.click();
+    }
+
+    window.onload = loadBookings;
+    window.exportToCSV = exportToCSV;
+  </script>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    th { background: #eee; }
+    button { padding: 10px 20px; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h2>Luxporter Booking Dashboard</h2>
+  <button onclick="exportToCSV()">Export to CSV</button>
+  <table id="bookingTable">
+    <tr>
+      <th>Pickup</th>
+      <th>Dropoff</th>
+      <th>Distance (km)</th>
+      <th>Time (min)</th>
+      <th>Type</th>
+      <th>Class</th>
+      <th>Price</th>
+      <th>Payment</th>
+      <th>Date</th>
+    </tr>
+  </table>
+</body>
+</html>
