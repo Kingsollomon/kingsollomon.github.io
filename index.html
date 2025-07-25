@@ -21,7 +21,7 @@
   <header class="site-header">
     <div class="container">
       <a href="https://theluxuryporter.com" class="logo">
-        <img src="assets/logo.svg" alt="The Luxury Porter logo" />
+        <img src="assets/logo.png" alt="The Luxury Porter logo" />
       </a>
       <nav class="nav">
         <a href="#services">Services</a>
@@ -72,17 +72,17 @@
       <h2>Our Fleet</h2>
       <div class="grid3">
         <div class="vehicle">
-          <img src="assets/images/sedan.jpg" alt="Sedan" />
+          <img src="assets/sedan.png" alt="Sedan" />
           <h3>Sedan</h3>
           <p>Up to 3 passengers, refined comfort.</p>
         </div>
         <div class="vehicle">
-          <img src="assets/images/suv.jpg" alt="SUV" />
+          <img src="assets/SUV.png" alt="SUV" />
           <h3>SUV</h3>
           <p>Up to 6 passengers, spacious luxury.</p>
         </div>
         <div class="vehicle">
-          <img src="assets/images/van.jpg" alt="Van" />
+          <img src="assets/Van.png" alt="Van" />
           <h3>Van</h3>
           <p>Up to 10 passengers, ultimate convenience.</p>
         </div>
@@ -155,7 +155,7 @@
     </div>
   </footer>
 
-  <!-- WIDGET SCRIPT (unchanged) -->
+  <!-- WIDGET SCRIPT (unchanged except asset paths) -->
   <script>
     let directionsService;
     function initAutocomplete() {
@@ -202,15 +202,16 @@
     function updateVehiclePreview() {
       const type = document.getElementById('vehicleType').value;
       const map = {
-        sedan: 'assets/images/sedan.jpg',
-        suv:   'assets/images/suv.jpg',
-        van:   'assets/images/van.jpg'
+        sedan: 'assets/sedan.png',
+        suv:   'assets/SUV.png',
+        van:   'assets/Van.png'
       };
       document.getElementById('vehiclePreview').innerHTML =
-        `<img src="${map[type]}" alt="${type} preview">`;
+        `<img src="${map[type]}" alt="${type} preview" />`;
     }
 
     window.onload = initAutocomplete;
   </script>
 </body>
 </html>
+```
