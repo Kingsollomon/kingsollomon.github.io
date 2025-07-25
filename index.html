@@ -1,0 +1,211 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Luxury Porter | Premier Vancouver Shuttle & Chauffeur</title>
+  <meta name="description" content="The Luxury Porter – airport transfers and chauffeur services in Vancouver." />
+  <link rel="stylesheet" href="style.css" />
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places"
+  ></script>
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <img src="assets/logo.svg" alt="The Luxury Porter logo" />
+      </a>
+      <nav class="nav">
+        <a href="#services">Services</a>
+        <a href="#fleet">Fleet</a>
+        <a href="#booking">Book Now</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="contact-info">
+        <a href="tel:6045059651">604.505.9651</a>
+        <a href="mailto:info@theluxuporter.com">info@theluxuporter.com</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="hero" class="hero">
+    <div class="container">
+      <h1>Ride with Luxury. Travel in Style.</h1>
+      <p>Premier airport transfers and chauffeur services in Vancouver.</p>
+      <a href="#booking" class="btn btn-primary">Book Your Ride</a>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="section services">
+    <div class="container">
+      <h2>Our Services</h2>
+      <div class="grid3">
+        <div class="card">
+          <h3>Airport Transfers</h3>
+          <p>On-time pickups and drop-offs at YVR and local heliports.</p>
+        </div>
+        <div class="card">
+          <h3>Corporate Chauffeur</h3>
+          <p>Discreet rides for executives and VIPs.</p>
+        </div>
+        <div class="card">
+          <h3>Event Transportation</h3>
+          <p>Weddings, conferences, galas – arrive in style.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLEET -->
+  <section id="fleet" class="section fleet">
+    <div class="container">
+      <h2>Our Fleet</h2>
+      <div class="grid3">
+        <div class="vehicle">
+          <img src="assets/images/sedan.jpg" alt="Sedan" />
+          <h3>Sedan</h3>
+          <p>Up to 3 passengers, refined comfort.</p>
+        </div>
+        <div class="vehicle">
+          <img src="assets/images/suv.jpg" alt="SUV" />
+          <h3>SUV</h3>
+          <p>Up to 6 passengers, spacious luxury.</p>
+        </div>
+        <div class="vehicle">
+          <img src="assets/images/van.jpg" alt="Van" />
+          <h3>Van</h3>
+          <p>Up to 10 passengers, ultimate convenience.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOKING WIDGET -->
+  <section id="booking" class="section booking">
+    <div class="container">
+      <div class="widget">
+        <h2>Book Your Ride</h2>
+        <div class="field">
+          <label for="pickup">Pickup Location</label>
+          <input type="text" id="pickup" placeholder="Start typing address..." />
+        </div>
+        <div class="field">
+          <label for="dropoff">Drop-off Location</label>
+          <input type="text" id="dropoff" placeholder="Start typing address..." />
+        </div>
+        <div class="field">
+          <label for="distance">Distance (km)</label>
+          <input type="number" id="distance" readonly />
+        </div>
+        <div class="field">
+          <label for="time">Estimated Time (mins)</label>
+          <input type="number" id="time" readonly />
+        </div>
+        <div class="field">
+          <label for="vehicleType">Vehicle Type</label>
+          <select id="vehicleType" onchange="updateVehiclePreview()">
+            <option value="sedan">Sedan</option>
+            <option value="suv">SUV</option>
+            <option value="van">Van</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="vehicleClass">Vehicle Class</label>
+          <select id="vehicleClass">
+            <option value="economy">Economy</option>
+            <option value="business">Business</option>
+            <option value="luxury">Luxury</option>
+          </select>
+        </div>
+        <div class="vehicle-preview" id="vehiclePreview"></div>
+        <div class="field">
+          <strong>Total Price: $<span id="price">0.00</span></strong>
+        </div>
+        <button onclick="calculateRouteAndPrice()">Calculate</button>
+        <div id="payment-buttons"></div>
+        <div id="confirmation" class="success"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section contact">
+    <div class="container">
+      <h2>Get in Touch</h2>
+      <p>Phone: <a href="tel:6045059651">604.505.9651</a></p>
+      <p>Email: <a href="mailto:info@theluxuporter.com">info@theluxuporter.com</a></p>
+      <p>Web: <a href="https://theluxuporter.com">theluxuporter.com</a></p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2025 The Luxury Porter. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- WIDGET SCRIPT -->
+  <script>
+    let directionsService;
+    function initAutocomplete() {
+      directionsService = new google.maps.DirectionsService();
+      new google.maps.places.Autocomplete(document.getElementById('pickup'));
+      new google.maps.places.Autocomplete(document.getElementById('dropoff'));
+    }
+
+    function calculateRouteAndPrice() {
+      const pickup = document.getElementById('pickup').value;
+      const dropoff = document.getElementById('dropoff').value;
+      const type = document.getElementById('vehicleType').value;
+      const cls = document.getElementById('vehicleClass').value;
+      if (!pickup || !dropoff) {
+        alert('Enter both pickup and drop-off locations.');
+        return;
+      }
+      directionsService.route({
+        origin: pickup,
+        destination: dropoff,
+        travelMode: 'DRIVING'
+      }, (response, status) => {
+        if (status === 'OK') {
+          const leg = response.routes[0].legs[0];
+          const km = leg.distance.value / 1000;
+          const mins = leg.duration.value / 60;
+          document.getElementById('distance').value = km.toFixed(1);
+          document.getElementById('time').value = mins.toFixed(0);
+
+          let rate = 1.0;
+          if (type === 'suv') rate += 0.5;
+          if (type === 'van') rate += 1.0;
+          if (cls === 'business') rate += 1.0;
+          if (cls === 'luxury') rate += 2.0;
+
+          const price = (km * 1.5 + mins * 0.5) * rate;
+          document.getElementById('price').textContent = price.toFixed(2);
+        } else {
+          alert('Could not calculate route. Please try again.');
+        }
+      });
+    }
+
+    function updateVehiclePreview() {
+      const type = document.getElementById('vehicleType').value;
+      const map = {
+        sedan: 'assets/images/sedan.jpg',
+        suv:   'assets/images/suv.jpg',
+        van:   'assets/images/van.jpg'
+      };
+      document.getElementById('vehiclePreview').innerHTML =
+        `<img src="${map[type]}" alt="${type} preview">`;
+    }
+
+    window.onload = initAutocomplete;
+  </script>
+</body>
+</html>
