@@ -6,18 +6,17 @@
     name="viewport"
     content="width=device-width, initial-scale=1.0"
   />
-  <title>Arrive in Style with The Luxporter</title>
-  <meta
-    name="description"
-    content="Premium private airport transfers and chauffeur services across Metro Vancouver. Luxury fleet, on-time pickups, bilingual drivers."
+  <title>The Luxporter</title>
+  <link
+    rel="stylesheet"
+    href="assets/css/styles.css"
   />
-  <link rel="stylesheet" href="assets/css/styles.css" />
-  <link rel="icon" href="assets/images/favicon.ico" />
 </head>
 <body>
+  <!-- HEADER -->
   <header class="site-header">
     <nav class="navbar">
-      <a href="/" class="logo-link" aria-label="The Luxporter Home">
+      <a href="index.html" class="logo-link" aria-label="The Luxporter Home">
         <img
           src="assets/images/logo.svg"
           alt="The Luxporter Logo"
@@ -35,113 +34,130 @@
   </header>
 
   <main>
-    <!-- Hero -->
-    <section class="hero">
+    <!-- HERO SECTION -->
+    <section class="section hero">
       <div class="hero-content">
-        <h1>Arrive in Style with The Luxporter</h1>
-        <p>Private airport transfers and chauffeur services across Metro Vancouver.</p>
-        <a href="#contact" class="btn btn-primary">Get a Quote</a>
+        <h1>Your Luxury Travel, Simplified</h1>
+        <p>
+          We curate unforgettable experiences tailored to your every whim.
+        </p>
+        <a href="#services" class="btn btn-secondary">
+          Explore Services
+        </a>
       </div>
       <div class="hero-image">
         <img
-          src="assets/images/van-skyline.jpg"
-          alt="Luxury van with Vancouver skyline"
+          src="assets/images/hero.jpg"
+          alt="Luxurious travel photo"
         />
       </div>
     </section>
 
-    <!-- Why Choose Us -->
+    <!-- SERVICES -->
+    <section id="services" class="section services">
+      <h2>Our Services</h2>
+      <div class="service-list">
+        <article class="service-item">
+          <h3>Private Jet Charters</h3>
+          <p>
+            Fly on your schedule in uncompromising luxury.
+          </p>
+        </article>
+        <article class="service-item">
+          <h3>Yacht Rentals</h3>
+          <p>
+            Cruise the world’s most exclusive waters in style.
+          </p>
+        </article>
+        <article class="service-item">
+          <h3>VIP Concierge</h3>
+          <p>
+            From dinner reservations to exclusive events, we’ve got you covered.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- WHY US -->
     <section id="why-us" class="section why-us">
-      <h2>Why Choose The Luxporter</h2>
-      <ul class="features-list">
-        <li>Luxury fleet of sedans, SUVs, and vans</li>
-        <li>Professional bilingual chauffeurs</li>
-        <li>Live flight tracking & on-time pickup</li>
-        <li>Meet & greet service in arrivals</li>
-        <li>Flexible cancellation policy</li>
+      <h2>Why Choose Us</h2>
+      <ul>
+        <li>24/7 Dedicated Support</li>
+        <li>Hand-Picked Luxury Partners</li>
+        <li>Seamless End-to-End Service</li>
       </ul>
     </section>
 
-    <!-- How It Works -->
+    <!-- HOW IT WORKS -->
     <section id="how-it-works" class="section how-it-works">
       <h2>How It Works</h2>
-      <div class="steps">
-        <div class="step">
-          <div class="step-number">1</div>
-          <p>Fill out the booking form below</p>
-        </div>
-        <div class="step">
-          <div class="step-number">2</div>
-          <p>We confirm details & flight times</p>
-        </div>
-        <div class="step">
-          <div class="step-number">3</div>
-          <p>Enjoy a seamless airport transfer</p>
-        </div>
-      </div>
+      <ol>
+        <li>Tell us your dream itinerary</li>
+        <li>We craft a personalized plan</li>
+        <li>Relax and enjoy—everything’s taken care of</li>
+      </ol>
     </section>
 
-    <!-- Booking / Contact -->
+    <!-- CONTACT / FALLBACK BOOKING FORM -->
     <section id="contact" class="section contact">
-      <h2>Book Your Transfer</h2>
+      <h2>Get in Touch</h2>
       <form
-        action="mailto:bookings@luxporter.com"
+        action="https://formspree.io/f/your-form-id"
         method="POST"
-        enctype="text/plain"
-        onsubmit="return validateForm()"
-        class="booking-form"
+        class="contact-form"
       >
-        <label>
-          Name*
-          <input type="text" name="Name" id="name" required />
-        </label>
-        <label>
-          Email*
-          <input type="email" name="Email" id="email" required />
-        </label>
-        <label>
-          Flight Number
-          <input type="text" name="Flight Number" />
-        </label>
-        <label>
-          Pickup Date & Time*
-          <input
-            type="datetime-local"
-            name="Pickup Date & Time"
-            id="datetime"
-            required
-          />
-        </label>
-        <!-- Honey pot field for spam bots -->
+        <label for="name">Name</label>
         <input
           type="text"
-          name="_gotcha"
-          style="display: none"
-          tabindex="-1"
+          id="name"
+          name="name"
+          required
         />
+
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+        />
+
+        <label for="message">Your Request</label>
+        <textarea
+          id="message"
+          name="message"
+          rows="4"
+          required
+        ></textarea>
+
         <button type="submit" class="btn btn-primary">
-          Email Booking Details
+          Submit
         </button>
       </form>
     </section>
+
+    <!-- BOOKING WIDGET PLACEHOLDER -->
+    <section class="section booking-widget">
+      <h2>Instant Booking</h2>
+      <div id="booking-widget-container">
+        <!-- Paste your booking widget’s embed code here -->
+      </div>
+    </section>
   </main>
 
+  <!-- FOOTER -->
   <footer class="site-footer">
-    <p>© 2025 The Luxporter. All rights reserved.</p>
-    <a href="privacy.html">Privacy Policy</a>
+    <p>
+      &copy; 2025 The Luxporter. All rights reserved.
+    </p>
+    <ul class="social-links">
+      <li><a href="#"><img src="assets/icons/ico-facebook.svg" alt="Facebook" /></a></li>
+      <li><a href="#"><img src="assets/icons/ico-instagram.svg" alt="Instagram" /></a></li>
+      <li><a href="#"><img src="assets/icons/ico-linkedin.svg" alt="LinkedIn" /></a></li>
+    </ul>
   </footer>
 
-  <script>
-    function validateForm() {
-      const name = document.getElementById("name").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const dt = document.getElementById("datetime").value;
-      if (!name || !email || !dt) {
-        alert("Please fill in all required fields.");
-        return false;
-      }
-      return true;
-    }
-  </script>
+  <script src="assets/js/main.js"></script>
 </body>
 </html>
+```
