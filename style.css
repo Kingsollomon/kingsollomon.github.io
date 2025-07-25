@@ -1,0 +1,179 @@
+/* style.css */
+:root {
+  --bg:        #000000;
+  --text:      #f5e1a4;
+  --accent:    #d4af37;
+  --font-body: 'Inter', sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* HEADER */
+.site-header {
+  background: rgba(0,0,0,0.9);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+.logo img {
+  height: 50px;
+}
+.nav a {
+  margin: 0 1rem;
+  color: var(--text);
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.contact-info a {
+  margin-left: 1rem;
+  color: var(--accent);
+}
+
+/* HERO */
+.hero {
+  text-align: center;
+  padding: 4rem 1rem;
+}
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+.hero p {
+  margin-bottom: 1.5rem;
+}
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.btn-primary {
+  background: var(--accent);
+  color: var(--bg);
+}
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+/* SECTIONS */
+.section {
+  padding: 3rem 0;
+  border-bottom: 1px solid #222;
+}
+.section h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--accent);
+}
+
+/* GRID 3 */
+.grid3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+  gap: 2rem;
+  text-align: center;
+}
+.card,
+.vehicle {
+  background: #111;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+.card h3,
+.vehicle h3 {
+  margin-bottom: 0.5rem;
+}
+.vehicle img {
+  width: 100%;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+/* BOOKING WIDGET */
+.booking .widget {
+  max-width: 600px;
+  margin: auto;
+  background: #111;
+  padding: 2rem;
+  border-radius: 12px;
+}
+.field {
+  margin-bottom: 1rem;
+}
+.field label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+.field input,
+.field select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #333;
+  border-radius: 6px;
+  background: #000;
+  color: var(--text);
+}
+.vehicle-preview img {
+  width: 100%;
+  border-radius: 6px;
+  margin-top: 1rem;
+}
+.booking button {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+.success {
+  margin-top: 1rem;
+  color: #4caf50;
+  font-weight: 600;
+}
+
+/* CONTACT & FOOTER */
+.contact p,
+.contact a {
+  text-align: center;
+  color: var(--text);
+}
+.contact a {
+  color: var(--accent);
+}
+.site-footer {
+  background: #111;
+  text-align: center;
+  padding: 1.5rem 0;
+}
+.site-footer p {
+  font-size: 0.9rem;
+}
