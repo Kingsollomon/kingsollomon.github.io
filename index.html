@@ -18,21 +18,25 @@
     }
   </style>
 
-  <!-- Firebase SDK -->
+ <!-- Firebase SDKs -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-    import { getAnalytics }  from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
     const firebaseConfig = {
       apiKey: "AIzaSyBjRgQHuQM5KtOafaJuFgSeh8sFOZk8-4E",
       authDomain: "the-luxporter-79d0e.firebaseapp.com",
       projectId: "the-luxporter-79d0e",
-      storageBucket: "the-luxporter-79d0e.firebasestorage.app",
+      storageBucket: "the-luxporter-79d0e.appspot.com",
       messagingSenderId: "988733228385",
       appId: "1:988733228385:web:0c5f52530d059d19c37120",
       measurementId: "G-8C1WSFXET0"
     };
+
     const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
+    getAnalytics(app);
+    window.__DB__ = getFirestore(app);
   </script>
 
   <!-- Google Maps & Places API -->
