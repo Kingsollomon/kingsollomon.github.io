@@ -7,20 +7,14 @@
   <meta name="description" content="The Luxury Porter – airport transfers and chauffeur services in Vancouver." />
   <link rel="stylesheet" href="style.css" />
 
-  <!-- Firebase SDKs (App, Analytics & Firestore) -->
+  <!-- Firebase SDKs: initialize app, analytics & expose Firestore on window.__DB__ -->
   <script type="module">
-    // Core Firebase
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
-    // Firestore (modular)
     import {
-      getFirestore,
-      collection,
-      addDoc,
-      serverTimestamp
+      getFirestore
     } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-    // Your Firebase configuration
     const firebaseConfig = {
       apiKey: "AIzaSyBjRgQHuQM5KtOafaJuFgSeh8sFOZk8-4E",
       authDomain: "the-luxporter-79d0e.firebaseapp.com",
@@ -31,21 +25,35 @@
       measurementId: "G-8C1WSFXET0"
     };
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-    // Initialize Firestore and expose for widget module
-    const db = getFirestore(app);
-    window.__DB__ = db;  // will use this in booking code
+    getAnalytics(app);
+
+    // make Firestore available to other modules
+    window.__DB__ = getFirestore(app);
   </script>
 
-  <!-- Load Maps JavaScript API (async + defer) -->
+  <!-- Define global initAutocomplete BEFORE loading Maps API -->
+  <script>
+    var directionsService;
+    window.initAutocomplete = function () {
+      directionsService = new google.maps.DirectionsService();
+
+      new google.maps.places.Autocomplete(
+        document.getElementById("pickup")
+      );
+      new google.maps.places.Autocomplete(
+        document.getElementById("dropoff")
+      );
+    };
+  </script>
+
+  <!-- Load Maps JavaScript API: async, defer, lazy-load -->
   <script
-  loading="lazy"
-  async
-  defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrER52L1EiBYmyU6wDZ-xK9YK5dhtY8_A&libraries=places&callback=initAutocomplete">
-</script>
+    loading="lazy"
+    async
+    defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrER52L1EiBYmyU6wDZ-xK9YK5dhtY8_A&libraries=places&callback=initAutocomplete">
+  </script>
 </head>
 
 <body>
@@ -56,7 +64,7 @@
     <div class="container">
       <div class="widget">
         <h2>Book Your Ride</h2>
-        <!-- Pickup & Dropoff -->
+
         <div class="field">
           <label for="pickup">Pickup Location</label>
           <input type="text" id="pickup" placeholder="Start typing address..." />
@@ -65,7 +73,7 @@
           <label for="dropoff">Drop-off Location</label>
           <input type="text" id="dropoff" placeholder="Start typing address..." />
         </div>
-        <!-- Passengers & Bags -->
+
         <div class="field">
           <label for="passengers">Number of Passengers</label>
           <input type="number" id="passengers" min="1" value="1" />
@@ -74,7 +82,7 @@
           <label for="bags">Number of Bags</label>
           <input type="number" id="bags" min="0" value="0" />
         </div>
-        <!-- Date & Time -->
+
         <div class="field">
           <label for="pickupDate">Pickup Date</label>
           <input type="date" id="pickupDate" />
@@ -83,12 +91,12 @@
           <label for="pickupTime">Pickup Time</label>
           <input type="time" id="pickupTime" />
         </div>
-        <!-- Notes -->
+
         <div class="field">
           <label for="notes">Additional Notes</label>
           <textarea id="notes" placeholder="Enter any special requests or notes"></textarea>
         </div>
-        <!-- Distance & Duration (read-only) -->
+
         <div class="field">
           <label for="distance">Distance (km)</label>
           <input type="number" id="distance" readonly />
@@ -97,7 +105,7 @@
           <label for="time">Estimated Time (mins)</label>
           <input type="number" id="time" readonly />
         </div>
-        <!-- Vehicle Type & Class -->
+
         <div class="field">
           <label for="vehicleType">Vehicle Type</label>
           <select id="vehicleType" onchange="updateVehiclePreview()">
@@ -114,8 +122,9 @@
             <option value="luxury">Luxury</option>
           </select>
         </div>
+
         <div class="vehicle-preview" id="vehiclePreview"></div>
-        <!-- Price & Submit -->
+
         <div class="field">
           <strong>Total Price: $<span id="price">0.00</span></strong>
         </div>
@@ -127,40 +136,26 @@
 
   <!-- ... contact & footer ... -->
 
-  <!-- WIDGET LOGIC AS MODULE -->
+  <!-- WIDGET LOGIC (module) -->
   <script type="module">
-    // Firestore helpers
     import {
       collection,
       addDoc,
       serverTimestamp
     } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-    // Grab the Firestore instance from window
     const db = window.__DB__;
 
-    // Google Maps autocomplete and directionsService
-    let directionsService;
-    window.initAutocomplete = function () {
-      directionsService = new google.maps.DirectionsService();
-      new google.maps.places.Autocomplete(
-        document.getElementById("pickup")
-      );
-      new google.maps.places.Autocomplete(
-        document.getElementById("dropoff")
-      );
-    };
-
     window.calculateRouteAndPrice = async function () {
-      const pickup = document.getElementById("pickup").value;
-      const dropoff = document.getElementById("dropoff").value;
-      const passengers = +document.getElementById("passengers").value;
-      const bags = +document.getElementById("bags").value;
-      const date = document.getElementById("pickupDate").value;
-      const time = document.getElementById("pickupTime").value;
-      const notes = document.getElementById("notes").value;
-      const type = document.getElementById("vehicleType").value;
-      const cls = document.getElementById("vehicleClass").value;
+      const pickup    = document.getElementById("pickup").value;
+      const dropoff   = document.getElementById("dropoff").value;
+      const passengers= +document.getElementById("passengers").value;
+      const bags      = +document.getElementById("bags").value;
+      const date      = document.getElementById("pickupDate").value;
+      const time      = document.getElementById("pickupTime").value;
+      const notes     = document.getElementById("notes").value;
+      const type      = document.getElementById("vehicleType").value;
+      const cls       = document.getElementById("vehicleClass").value;
 
       if (!pickup || !dropoff || !date || !time) {
         return alert("Please fill in pickup, drop-off, date, and time.");
@@ -170,26 +165,25 @@
         {
           origin: pickup,
           destination: dropoff,
-          travelMode: "DRIVING",
+          travelMode: "DRIVING"
         },
         async (response, status) => {
           if (status === "OK") {
-            const leg = response.routes[0].legs[0];
-            const km = leg.distance.value / 1000;
+            const leg  = response.routes[0].legs[0];
+            const km   = leg.distance.value / 1000;
             const mins = leg.duration.value / 60;
 
             document.getElementById("distance").value = km.toFixed(1);
-            document.getElementById("time").value = mins.toFixed(0);
+            document.getElementById("time").value     = mins.toFixed(0);
 
             let rate = 1.0;
-            if (type === "suv") rate += 0.5;
-            if (type === "van") rate += 1.0;
-            if (cls === "business") rate += 1.0;
-            if (cls === "luxury") rate += 2.0;
+            if (type === "suv")      rate += 0.5;
+            if (type === "van")      rate += 1.0;
+            if (cls  === "business") rate += 1.0;
+            if (cls  === "luxury")   rate += 2.0;
 
-            const basePrice = km * 1.5 + mins * 0.5;
+            const basePrice  = km * 1.5 + mins * 0.5;
             const finalPrice = basePrice * rate * 1.2;
-
             document.getElementById("price").textContent = finalPrice.toFixed(2);
 
             try {
@@ -206,7 +200,7 @@
                 vehicleType: type,
                 vehicleClass: cls,
                 price: finalPrice.toFixed(2),
-                createdAt: serverTimestamp(),
+                createdAt: serverTimestamp()
               });
               document.getElementById("confirmation").textContent =
                 "Booking submitted successfully!";
@@ -223,10 +217,10 @@
 
     window.updateVehiclePreview = function () {
       const type = document.getElementById("vehicleType").value;
-      const map = {
+      const map  = {
         sedan: "assets/sedan.png",
-        suv: "assets/SUV.png",
-        van: "assets/Van.png",
+        suv:   "assets/SUV.png",
+        van:   "assets/Van.png"
       };
       document.getElementById("vehiclePreview").innerHTML = `
         <img src="${map[type]}" alt="${type} preview" />
@@ -235,3 +229,4 @@
   </script>
 </body>
 </html>
+```
