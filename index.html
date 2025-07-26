@@ -18,7 +18,7 @@
     }
   </style>
 
- <!-- Firebase SDKs -->
+   <!-- Firebase SDKs -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
@@ -34,15 +34,9 @@
       measurementId: "G-8C1WSFXET0"
     };
 
-   // 3. Initialize Firebase
-    const app       = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-    const auth      = getAuth(app);
-    const db        = getFirestore(app);
-
-    // 4. Now you can use `db` for Firestore operations
-    // Example:
-    // db.collection('bookings').add({ name: 'King', timestamp: Date.now() });
+    const app = initializeApp(firebaseConfig);
+    getAnalytics(app);
+    window.__DB__ = getFirestore(app);
   </script>
 
   <!-- Google Maps & Places API -->
@@ -133,42 +127,35 @@
   </div>
 </section>
 
-  <!-- BOOKING WIDGET -->
   <section id="booking" class="section booking">
     <div class="container">
+      <h2>Book Your Ride</h2>
       <div class="widget">
-        <h2>Book Your Ride</h2>
 
         <div class="field">
           <label for="pickup">Pickup Location</label>
           <input type="text" id="pickup" placeholder="Start typing address..." />
         </div>
-
         <div class="field">
           <label for="dropoff">Drop-off Location</label>
           <input type="text" id="dropoff" placeholder="Start typing address..." />
         </div>
-
         <div class="field">
           <label for="passengers">Number of Passengers</label>
           <input type="number" id="passengers" min="1" value="1" />
         </div>
-
         <div class="field">
           <label for="bags">Number of Bags</label>
           <input type="number" id="bags" min="0" value="0" />
         </div>
-
         <div class="field">
           <label for="pickupDate">Pickup Date</label>
           <input type="date" id="pickupDate" />
         </div>
-
         <div class="field">
           <label for="pickupTime">Pickup Time</label>
           <input type="time" id="pickupTime" />
         </div>
-
         <div class="field">
           <label for="notes">Additional Notes</label>
           <textarea id="notes" placeholder="Enter any special requests or notes"></textarea>
@@ -178,7 +165,6 @@
           <label for="distance">Distance (km)</label>
           <input type="number" id="distance" readonly />
         </div>
-
         <div class="field">
           <label for="time">Estimated Time (mins)</label>
           <input type="number" id="time" readonly />
@@ -192,7 +178,6 @@
             <option value="van">Van</option>
           </select>
         </div>
-
         <div class="field">
           <label for="vehicleClass">Vehicle Class</label>
           <select id="vehicleClass">
@@ -203,16 +188,92 @@
         </div>
 
         <div class="vehicle-preview" id="vehiclePreview"></div>
-
-        <div class="field">
-          <strong>Total Price: $<span id="price">0.00</span></strong>
-        </div>
-
+        <div class="field"><strong>Total Price: $<span id="price">0.00</span></strong></div>
         <button onclick="calculateRouteAndPrice()">Submit Booking</button>
         <div id="confirmation" class="success"></div>
       </div>
     </div>
   </section>
+
+  <script type="module">
+    import {
+      collection,
+      addDoc,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+    const db = window.__DB__;
+
+    window.calculateRouteAndPrice = async function () {
+      const pickup    = document.getElementById("pickup").value.trim();
+      const dropoff   = document.getElementById("dropoff").value.trim();
+      const passengers= +document.getElementById("passengers").value;
+      const bags      = +document.getElementById("bags").value;
+      const date      = document.getElementById("pickupDate").value;
+      const time      = document.getElementById("pickupTime").value;
+      const notes     = document.getElementById("notes").value;
+      const type      = document.getElementById("vehicleType").value;
+      const cls       = document.getElementById("vehicleClass").value;
+
+      if (!pickup || !dropoff || !date || !time) {
+        return alert("Please fill in pickup, drop-off, date, and time.");
+      }
+
+      directionsService.route(
+        {
+          origin: pickup,
+          destination: dropoff,
+          travelMode: "DRIVING"
+        },
+        async (response, status) => {
+          if (status !== "OK") return alert("Could not calculate route.");
+
+          const leg  = response.routes[0].legs[0];
+          const km   = leg.distance.value / 1000;
+          const mins = leg.duration.value / 60;
+
+          document.getElementById("distance").value = km.toFixed(1);
+          document.getElementById("time").value     = mins.toFixed(0);
+
+          let rate = 1;
+          if (type === "suv") rate += 0.5;
+          if (type === "van") rate += 1.0;
+          if (cls  === "business") rate += 1.0;
+          if (cls  === "luxury")   rate += 2.0;
+
+          const price = (km * 1.5 + mins * 0.5) * rate * 1.2;
+          document.getElementById("price").textContent = price.toFixed(2);
+
+          try {
+            await addDoc(collection(db, "bookings"), {
+              pickup, dropoff, passengers, bags, date, time, notes,
+              distance_km: km.toFixed(1),
+              duration_min: mins.toFixed(0),
+              vehicleType: type,
+              vehicleClass: cls,
+              price: price.toFixed(2),
+              createdAt: serverTimestamp()
+            });
+
+            document.getElementById("confirmation").textContent = "🎉 Booking submitted successfully!";
+          } catch (err) {
+            document.getElementById("confirmation").textContent = "🚨 Error: " + err.message;
+          }
+        }
+      );
+    };
+
+    window.updateVehiclePreview = function () {
+      const type = document.getElementById("vehicleType").value;
+      const map = {
+        sedan: "assets/sedan.png",
+        suv:   "assets/SUV.png",
+        van:   "assets/Van.png"
+      };
+      document.getElementById("vehiclePreview").innerHTML =
+        `<img src="${map[type]}" alt="${type} preview" />`;
+    };
+  </script>
 
   <!-- CONTACT -->
   <section id="contact" class="section contact">
