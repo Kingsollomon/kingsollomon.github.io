@@ -5,17 +5,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>The Luxury Porter | Premier Vancouver Shuttle & Chauffeur</title>
-  <meta name="description" content="The Luxury Porter – airport transfers and chauffeur services in Vancouver." />
+  <meta
+    name="description"
+    content="The Luxury Porter – airport transfers and chauffeur services in Vancouver."
+  />
   <link rel="stylesheet" href="style.css" />
 
-  <!-- Load Maps JavaScript API with Places library -->
+  <!-- Load Maps JavaScript API with Places library (async & defer) -->
   <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrER52L1EiBYmyU6wDZ-xK9YK5dhtY8_A&libraries=places"
-  ></script>
+    async
+    defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrER52L1EiBYmyU6wDZ-xK9YK5dhtY8_A&libraries=places&callback=initAutocomplete">
+  </script>
 
   <!-- Open Graph -->
   <meta property="og:title" content="The Luxury Porter | Vancouver Chauffeur & Transfers" />
-  <meta property="og:description" content="Luxury airport transfers and chauffeur services in Vancouver." />
+  <meta
+    property="og:description"
+    content="Luxury airport transfers and chauffeur services in Vancouver."
+  />
   <meta property="og:url" content="https://theluxuryporter.com" />
   <meta property="og:type" content="website" />
 </head>
@@ -100,11 +108,19 @@
         <h2>Book Your Ride</h2>
         <div class="field">
           <label for="pickup">Pickup Location</label>
-          <input type="text" id="pickup" placeholder="Start typing address..." />
+          <input
+            type="text"
+            id="pickup"
+            placeholder="Start typing address..."
+          />
         </div>
         <div class="field">
           <label for="dropoff">Drop-off Location</label>
-          <input type="text" id="dropoff" placeholder="Start typing address..." />
+          <input
+            type="text"
+            id="dropoff"
+            placeholder="Start typing address..."
+          />
         </div>
         <div class="field">
           <label for="distance">Distance (km)</label>
@@ -158,62 +174,70 @@
     </div>
   </footer>
 
-  <!-- WIDGET SCRIPT (unchanged except asset paths) -->
+  <!-- WIDGET SCRIPT -->
   <script>
     let directionsService;
+
     function initAutocomplete() {
       directionsService = new google.maps.DirectionsService();
-      new google.maps.places.Autocomplete(document.getElementById('pickup'));
-      new google.maps.places.Autocomplete(document.getElementById('dropoff'));
+      new google.maps.places.Autocomplete(
+        document.getElementById("pickup")
+      );
+      new google.maps.places.Autocomplete(
+        document.getElementById("dropoff")
+      );
     }
 
     function calculateRouteAndPrice() {
-      const pickup = document.getElementById('pickup').value;
-      const dropoff = document.getElementById('dropoff').value;
-      const type = document.getElementById('vehicleType').value;
-      const cls = document.getElementById('vehicleClass').value;
+      const pickup = document.getElementById("pickup").value;
+      const dropoff = document.getElementById("dropoff").value;
+      const type = document.getElementById("vehicleType").value;
+      const cls = document.getElementById("vehicleClass").value;
       if (!pickup || !dropoff) {
-        alert('Enter both pickup and drop-off locations.');
+        alert("Enter both pickup and drop-off locations.");
         return;
       }
-      directionsService.route({
-        origin: pickup,
-        destination: dropoff,
-        travelMode: 'DRIVING'
-      }, (response, status) => {
-        if (status === 'OK') {
-          const leg = response.routes[0].legs[0];
-          const km = leg.distance.value / 1000;
-          const mins = leg.duration.value / 60;
-          document.getElementById('distance').value = km.toFixed(1);
-          document.getElementById('time').value = mins.toFixed(0);
+      directionsService.route(
+        {
+          origin: pickup,
+          destination: dropoff,
+          travelMode: "DRIVING",
+        },
+        (response, status) => {
+          if (status === "OK") {
+            const leg = response.routes[0].legs[0];
+            const km = leg.distance.value / 1000;
+            const mins = leg.duration.value / 60;
+            document.getElementById("distance").value = km.toFixed(1);
+            document.getElementById("time").value = mins.toFixed(0);
 
-          let rate = 1.0;
-          if (type === 'suv') rate += 0.5;
-          if (type === 'van') rate += 1.0;
-          if (cls === 'business') rate += 1.0;
-          if (cls === 'luxury') rate += 2.0;
+            let rate = 1.0;
+            if (type === "suv") rate += 0.5;
+            if (type === "van") rate += 1.0;
+            if (cls === "business") rate += 1.0;
+            if (cls === "luxury") rate += 2.0;
 
-          const price = (km * 1.5 + mins * 0.5) * rate;
-          document.getElementById('price').textContent = price.toFixed(2);
-        } else {
-          alert('Could not calculate route. Please try again.');
+            const price = (km * 1.5 + mins * 0.5) * rate;
+            document.getElementById("price").textContent =
+              price.toFixed(2);
+          } else {
+            alert("Could not calculate route. Please try again.");
+          }
         }
-      });
+      );
     }
 
     function updateVehiclePreview() {
-      const type = document.getElementById('vehicleType').value;
+      const type = document.getElementById("vehicleType").value;
       const map = {
-        sedan: 'assets/sedan.png',
-        suv:   'assets/SUV.png',
-        van:   'assets/Van.png'
+        sedan: "assets/sedan.png",
+        suv: "assets/SUV.png",
+        van: "assets/Van.png",
       };
-      document.getElementById('vehiclePreview').innerHTML =
-        `<img src="${map[type]}" alt="${type} preview" />`;
+      document.getElementById("vehiclePreview").innerHTML = `
+        <img src="${map[type]}" alt="${type} preview" />
+      `;
     }
-
-    window.onload = initAutocomplete;
   </script>
 </body>
 </html>
