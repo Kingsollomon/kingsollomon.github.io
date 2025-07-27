@@ -10,15 +10,37 @@
   <!-- Inline CSS for responsive fleet & preview images -->
   <style>
     .service-icon {
-      width: 200px;       
-      max-width: 100%;    
-      height: auto;       
-      display: block;     
+      width: 200px;
+      max-width: 100%;
+      height: auto;
+      display: block;
       margin: 0 auto 1rem;
+    }
+
+    /* Collapse-nav styles */
+    .nav.collapse-nav {
+      display: flex;            /* always visible on desktop */
+    }
+
+    @media (max-width: 768px) {
+      .nav-toggle {
+        display: block;         /* show hamburger on mobile */
+      }
+
+      .nav.collapse-nav {
+        display: none;          /* hide nav by default */
+        flex-direction: column;
+        width: 100%;
+        margin-top: 1rem;
+      }
+
+      .nav.collapse-nav.open {
+        display: flex;          /* show nav when .open is present */
+      }
     }
   </style>
 
-   <!-- Firebase SDKs -->
+  <!-- Firebase SDKs -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
@@ -60,12 +82,20 @@
       <a href="https://theluxuryporter.com" class="logo">
         <img src="assets/logo.png" alt="The Luxury Porter logo" />
       </a>
-      <nav class="nav">
+
+      <!-- Hamburger Button: aria-expanded starts false -->
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span class="hamburger"></span>
+      </button>
+
+      <!-- Collapsible Navigation Menu -->
+      <nav class="nav collapse-nav">
         <a href="#services">Services</a>
         <a href="#fleet">Fleet</a>
         <a href="#booking">Book Now</a>
         <a href="#contact">Contact</a>
       </nav>
+
       <div class="contact-info">
         <a href="tel:6045059651">604.505.9651</a>
         <a href="mailto:info@theluxuryporter.com">info@theluxuryporter.com</a>
@@ -419,6 +449,24 @@
         <img src="${map[type]}" alt="${type} preview" class="service-icon" />
       `;
     }
+  </script>
+
+  <!-- Collapse-nav toggle script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn = document.querySelector('.nav-toggle');
+      const menu = document.querySelector('.nav.collapse-nav');
+
+      if (!btn || !menu) {
+        console.error('Nav toggle or menu not found.');
+        return;
+      }
+
+      btn.addEventListener('click', () => {
+        const isOpen = menu.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+    });
   </script>
 </body>
 </html>
