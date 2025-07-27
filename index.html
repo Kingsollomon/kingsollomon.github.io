@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>The Luxury Porter | Premier Vancouver Shuttle & Chauffeur</title>
-  <meta name="description" content="The Luxury Porter – airport transfers and chauffeur services in Vancouver." />
-  <link rel="stylesheet" href="style.css" />
-
+  <meta content="The Luxury Porter – airport transfers and chauffeur services in Vancouver." name="description"/>
+  <link href="style.css" rel="stylesheet"/>
   <!-- Inline CSS for responsive fleet & preview images -->
   <style>
     .service-icon {
@@ -16,27 +15,16 @@
       display: block;
       margin: 0 auto 1rem;
     }
-
-    /* Collapse-nav styles */
-    .nav.collapse-nav {
-      display: flex;            /* always visible on desktop */
-    }
-
+    .nav.collapse-nav { display: flex; }
     @media (max-width: 768px) {
-      .nav-toggle {
-        display: block;         /* show hamburger on mobile */
-      }
-
+      .nav-toggle { display: block; }
       .nav.collapse-nav {
-        display: none;          /* hide nav by default */
+        display: none;
         flex-direction: column;
         width: 100%;
         margin-top: 1rem;
       }
-
-      .nav.collapse-nav.open {
-        display: flex;          /* show nav when .open is present */
-      }
+      .nav.collapse-nav.open { display: flex; }
     }
   </style>
 
@@ -62,40 +50,31 @@
   </script>
 
   <!-- Google Maps & Places API -->
-  <script
-    async
-    defer
+  <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrER52L1EiBYmyU6wDZ-xK9YK5dhtY8_A&libraries=places&callback=initAutocomplete">
   </script>
 
-  <!-- Open Graph -->
-  <meta property="og:title"        content="The Luxury Porter | Vancouver Chauffeur & Transfers" />
-  <meta property="og:description"  content="Luxury airport transfers and chauffeur services in Vancouver." />
-  <meta property="og:url"          content="https://theluxuryporter.com" />
-  <meta property="og:type"         content="website" />
+  <!-- Stripe & PayPal -->
+  <script src="https://js.stripe.com/v3/"></script>
+  <script src="https://www.paypal.com/sdk/js?client-id=AUV33shO6dasDsZOvQ3hmsD6cEZCjd6i2jGYqvVyTaZnuGdss26Pwz-svq34ZMIir5hkCDvYl__YF1og&currency=USD"></script>
 </head>
 
 <body>
   <!-- HEADER -->
   <header class="site-header">
     <div class="container">
-      <a href="https://theluxuryporter.com" class="logo">
-        <img src="assets/logo.png" alt="The Luxury Porter logo" />
+      <a class="logo" href="https://theluxuryporter.com">
+        <img alt="The Luxury Porter logo" src="assets/logo.png"/>
       </a>
-
-      <!-- Hamburger Button: aria-expanded starts false -->
-      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <button aria-expanded="false" aria-label="Toggle navigation" class="nav-toggle">
         <span class="hamburger"></span>
       </button>
-
-      <!-- Collapsible Navigation Menu -->
       <nav class="nav collapse-nav">
         <a href="#services">Services</a>
         <a href="#fleet">Fleet</a>
         <a href="#booking">Book Now</a>
         <a href="#contact">Contact</a>
       </nav>
-
       <div class="contact-info">
         <a href="tel:6045059651">604.505.9651</a>
         <a href="mailto:info@theluxuryporter.com">info@theluxuryporter.com</a>
@@ -104,16 +83,16 @@
   </header>
 
   <!-- HERO -->
-  <section id="hero" class="hero">
+  <section class="hero" id="hero">
     <div class="container">
       <h1>Ride with Luxury. Travel in Style.</h1>
       <p>Premier airport transfers and chauffeur services in Vancouver.</p>
-      <a href="#booking" class="btn btn-primary">Book Your Ride</a>
+      <a class="btn btn-primary" href="#booking">Book Your Ride</a>
     </div>
   </section>
 
   <!-- SERVICES -->
-  <section id="services" class="section services">
+  <section class="section services" id="services">
     <div class="container">
       <h2>Our Services</h2>
       <div class="grid3">
@@ -133,209 +112,125 @@
     </div>
   </section>
 
- <!-- FLEET -->
-<section id="fleet" class="section fleet">
-  <div class="container">
-    <h2>Our Fleet</h2>
-    <div class="grid3">
-      <div class="vehicle">
-        <img src="assets/sedan.png" alt="Sedan" class="service-icon" />
-        <h3>Sedan</h3>
-        <p>Up to 3 passengers, refined comfort.</p>
-      </div>
-      <div class="vehicle">
-        <img src="assets/SUV.png" alt="SUV" class="service-icon" />
-        <h3>SUV</h3>
-        <p>Up to 6 passengers, spacious luxury.</p>
-      </div>
-      <div class="vehicle">
-        <img src="assets/Van.png" alt="Van" class="service-icon" />
-        <h3>Van</h3>
-        <p>Up to 10 passengers, ultimate convenience.</p>
+  <!-- FLEET -->
+  <section class="section fleet" id="fleet">
+    <div class="container">
+      <h2>Our Fleet</h2>
+      <div class="grid3">
+        <div class="vehicle">
+          <img alt="Sedan" class="service-icon" src="assets/sedan.png"/>
+          <h3>Sedan</h3>
+          <p>Up to 3 passengers, refined comfort.</p>
+        </div>
+        <div class="vehicle">
+          <img alt="SUV" class="service-icon" src="assets/SUV.png"/>
+          <h3>SUV</h3>
+          <p>Up to 6 passengers, spacious luxury.</p>
+        </div>
+        <div class="vehicle">
+          <img alt="Van" class="service-icon" src="assets/Van.png"/>
+          <h3>Van</h3>
+          <p>Up to 10 passengers, ultimate convenience.</p>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-  <section id="booking" class="section booking">
-  <div class="container">
-    <h2>Book Your Ride</h2>
-    <div class="widget">
+  <!-- BOOKING -->
+  <section class="section booking" id="booking">
+    <div class="container">
+      <h2>Book Your Ride</h2>
+      <div class="widget">
+        <div class="field">
+          <label for="pickup">Pickup Location</label>
+          <input id="pickup" type="text" placeholder="Start typing address..."/>
+        </div>
+        <div class="field">
+          <label for="dropoff">Drop-off Location</label>
+          <input id="dropoff" type="text" placeholder="Start typing address..."/>
+        </div>
+        <div class="field">
+          <label for="passengers">Number of Passengers</label>
+          <input id="passengers" type="number" min="1" value="1"/>
+        </div>
+        <div class="field">
+          <label for="bags">Number of Bags</label>
+          <input id="bags" type="number" min="0" value="0"/>
+        </div>
+        <div class="field">
+          <label for="pickupDate">Pickup Date</label>
+          <input id="pickupDate" type="date"/>
+        </div>
+        <div class="field">
+          <label for="pickupTime">Pickup Time</label>
+          <input id="pickupTime" type="time"/>
+        </div>
+        <div class="field">
+          <label for="notes">Additional Notes</label>
+          <textarea id="notes" placeholder="Enter any special requests or notes"></textarea>
+        </div>
+        <div class="field">
+          <label for="flight">Flight Number</label>
+          <input id="flight" type="text" placeholder="Your flight number"/>
+        </div>
+        <div class="field">
+          <label for="phone">Phone Number</label>
+          <input id="phone" type="tel" placeholder="Your phone number"/>
+        </div>
+        <div class="field">
+          <label for="email">Email Address</label>
+          <input id="email" type="email" placeholder="Your email address"/>
+        </div>
+        <div class="field">
+          <label for="distance">Distance (km)</label>
+          <input id="distance" type="number" readonly/>
+        </div>
+        <div class="field">
+          <label for="time">Estimated Time (mins)</label>
+          <input id="time" type="number" readonly/>
+        </div>
+        <div class="field">
+          <label for="vehicleType">Vehicle Type</label>
+          <select id="vehicleType">
+            <option value="sedan">Sedan</option>
+            <option value="suv">SUV</option>
+            <option value="van">Van</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="vehicleClass">Vehicle Class</label>
+          <select id="vehicleClass">
+            <option value="economy">Economy</option>
+            <option value="business">Business</option>
+            <option value="luxury">Luxury</option>
+          </select>
+        </div>
+        <div class="vehicle-preview" id="vehiclePreview"></div>
 
-      <div class="field">
-        <label for="pickup">Pickup Location</label>
-        <input type="text" id="pickup" placeholder="Start typing address..." />
-      </div>
-      <div class="field">
-        <label for="dropoff">Drop-off Location</label>
-        <input type="text" id="dropoff" placeholder="Start typing address..." />
-      </div>
-      <div class="field">
-        <label for="passengers">Number of Passengers</label>
-        <input type="number" id="passengers" min="1" value="1" />
-      </div>
-      <div class="field">
-        <label for="bags">Number of Bags</label>
-        <input type="number" id="bags" min="0" value="0" />
-      </div>
-      <div class="field">
-        <label for="pickupDate">Pickup Date</label>
-        <input type="date" id="pickupDate" />
-      </div>
-      <div class="field">
-        <label for="pickupTime">Pickup Time</label>
-        <input type="time" id="pickupTime" />
-      </div>
-      <div class="field">
-        <label for="notes">Additional Notes</label>
-        <textarea id="notes" placeholder="Enter any special requests or notes"></textarea>
-      </div>
+        <!-- NEW: Calculate Price Button -->
+        <div class="field">
+          <button id="calcPriceBtn" class="btn btn-secondary" type="button">
+            Calculate Price
+          </button>
+        </div>
 
-      <!-- New Contact & Flight Fields -->
-      <div class="field">
-        <label for="flight">Flight Number</label>
-        <input type="text" id="flight" placeholder="Your flight number" />
+        <!-- PAYMENT SECTION -->
+        <div class="field" id="payment-section">
+          <strong>Total Price: $<span id="price">0.00</span></strong>
+          <div style="margin-top:1rem;">
+            <button id="stripeBtn" class="btn btn-primary" type="button">
+              Pay with Stripe
+            </button>
+          </div>
+          <div id="paypal-button-container" style="margin-top:1rem;"></div>
+        </div>
+        <div class="success" id="confirmation"></div>
       </div>
-      <div class="field">
-        <label for="phone">Phone Number</label>
-        <input type="tel" id="phone" placeholder="Your phone number" />
-      </div>
-      <div class="field">
-        <label for="email">Email Address</label>
-        <input type="email" id="email" placeholder="Your email address" />
-      </div>
-
-      <div class="field">
-        <label for="distance">Distance (km)</label>
-        <input type="number" id="distance" readonly />
-      </div>
-      <div class="field">
-        <label for="time">Estimated Time (mins)</label>
-        <input type="number" id="time" readonly />
-      </div>
-
-      <div class="field">
-        <label for="vehicleType">Vehicle Type</label>
-        <select id="vehicleType" onchange="updateVehiclePreview()">
-          <option value="sedan">Sedan</option>
-          <option value="suv">SUV</option>
-          <option value="van">Van</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="vehicleClass">Vehicle Class</label>
-        <select id="vehicleClass">
-          <option value="economy">Economy</option>
-          <option value="business">Business</option>
-          <option value="luxury">Luxury</option>
-        </select>
-      </div>
-
-      <div class="vehicle-preview" id="vehiclePreview"></div>
-      <div class="field">
-        <strong>Total Price: $<span id="price">0.00</span></strong>
-      </div>
-
-      <button onclick="calculateRouteAndPrice()">Submit Booking</button>
-      <div id="confirmation" class="success"></div>
     </div>
-  </div>
-</section>
-
-<script type="module">
-  import {
-    collection,
-    addDoc,
-    serverTimestamp
-  } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-
-  const db = window.__DB__;
-
-  window.calculateRouteAndPrice = async function () {
-    const pickup    = document.getElementById("pickup").value.trim();
-    const dropoff   = document.getElementById("dropoff").value.trim();
-    const passengers= +document.getElementById("passengers").value;
-    const bags      = +document.getElementById("bags").value;
-    const date      = document.getElementById("pickupDate").value;
-    const time      = document.getElementById("pickupTime").value;
-    const notes     = document.getElementById("notes").value.trim();
-    const flight    = document.getElementById("flight").value.trim();   // NEW
-    const phone     = document.getElementById("phone").value.trim();    // NEW
-    const email     = document.getElementById("email").value.trim();    // NEW
-    const type      = document.getElementById("vehicleType").value;
-    const cls       = document.getElementById("vehicleClass").value;
-
-    if (!pickup || !dropoff || !date || !time || !flight || !phone || !email) {
-      return alert("Please fill in pickup, drop-off, date, time, flight no., phone, and email.");
-    }
-
-    directionsService.route(
-      {
-        origin: pickup,
-        destination: dropoff,
-        travelMode: "DRIVING"
-      },
-      async (response, status) => {
-        if (status !== "OK") return alert("Could not calculate route.");
-
-        const leg  = response.routes[0].legs[0];
-        const km   = leg.distance.value / 1000;
-        const mins = leg.duration.value / 60;
-
-        document.getElementById("distance").value = km.toFixed(1);
-        document.getElementById("time").value     = mins.toFixed(0);
-
-        let rate = 1;
-        if (type === "suv")      rate += 0.5;
-        if (type === "van")      rate += 1.0;
-        if (cls  === "business") rate += 1.0;
-        if (cls  === "luxury")   rate += 2.0;
-
-        const price = (km * 1.5 + mins * 0.5) * rate * 1.2;
-        document.getElementById("price").textContent = price.toFixed(2);
-
-        try {
-          await addDoc(collection(db, "bookings"), {
-            pickup,
-            dropoff,
-            passengers,
-            bags,
-            date,
-            time,
-            notes,
-            flightNumber: flight,   // NEW
-            phone,                  // NEW
-            email,                  // NEW
-            distance_km: km.toFixed(1),
-            duration_min: mins.toFixed(0),
-            vehicleType: type,
-            vehicleClass: cls,
-            price: price.toFixed(2),
-            createdAt: serverTimestamp()
-          });
-
-          document.getElementById("confirmation").textContent = "🎉 Booking submitted successfully!";
-        } catch (err) {
-          document.getElementById("confirmation").textContent = "🚨 Error: " + err.message;
-        }
-      }
-    );
-  };
-
-  window.updateVehiclePreview = function () {
-    const type = document.getElementById("vehicleType").value;
-    const map = {
-      sedan: "assets/sedan.png",
-      suv:   "assets/SUV.png",
-      van:   "assets/Van.png"
-    };
-    document.getElementById("vehiclePreview").innerHTML =
-      `<img src="${map[type]}" alt="${type} preview" />`;
-  };
-</script>
+  </section>
 
   <!-- CONTACT -->
-  <section id="contact" class="section contact">
+  <section class="section contact" id="contact">
     <div class="container">
       <h2>Get in Touch</h2>
       <p>Phone: <a href="tel:6045059651">604.505.9651</a></p>
@@ -347,121 +242,146 @@
   <!-- FOOTER -->
   <footer class="site-footer">
     <div class="container">
-      <p>&copy; 2025 The Luxury Porter. All rights reserved.</p>
+      <p>© 2025 The Luxury Porter. All rights reserved.</p>
     </div>
   </footer>
 
-  <!-- WIDGET SCRIPT -->
+  <!-- Consolidated Scripts -->
   <script>
+    let bookingData = null;
+    let calculatedPrice = 0;
     let directionsService;
 
+    // Initialize Google Maps autocomplete & DirectionsService
     function initAutocomplete() {
       directionsService = new google.maps.DirectionsService();
-      new google.maps.places.Autocomplete(
-        document.getElementById("pickup")
-      );
-      new google.maps.places.Autocomplete(
-        document.getElementById("dropoff")
-      );
+      new google.maps.places.Autocomplete(document.getElementById("pickup"));
+      new google.maps.places.Autocomplete(document.getElementById("dropoff"));
     }
 
-    function calculateRouteAndPrice() {
-      const pickup    = document.getElementById("pickup").value;
-      const dropoff   = document.getElementById("dropoff").value;
-      const passengers= +document.getElementById("passengers").value;
-      const bags      = +document.getElementById("bags").value;
-      const date      = document.getElementById("pickupDate").value;
-      const time      = document.getElementById("pickupTime").value;
-      const notes     = document.getElementById("notes").value;
-      const type      = document.getElementById("vehicleType").value;
-      const cls       = document.getElementById("vehicleClass").value;
-
-      if (!pickup || !dropoff || !date || !time) {
-        alert("Please fill in pickup, drop-off, date, and time.");
-        return;
-      }
-
-      directionsService.route(
-        {
-          origin: pickup,
-          destination: dropoff,
-          travelMode: "DRIVING",
-        },
-        (response, status) => {
-          if (status === "OK") {
-            const leg  = response.routes[0].legs[0];
-            const km   = leg.distance.value  / 1000;
-            const mins = leg.duration.value  / 60;
-            document.getElementById("distance").value = km.toFixed(1);
-            document.getElementById("time"    ).value = mins.toFixed(0);
-
-            let rate = 1.0;
-            if (type === "suv") rate += 0.5;
-            if (type === "van") rate += 1.0;
-            if (cls  === "business") rate += 1.0;
-            if (cls  === "luxury") rate += 2.0;
-
-            const basePrice  = km * 1.5 + mins * 0.5;
-            const finalPrice = basePrice * rate * 1.2;
-            document.getElementById("price").textContent = finalPrice.toFixed(2);
-
-            // Save booking in Firestore
-            db.collection("bookings")
-              .add({
-                pickup,
-                dropoff,
-                passengers,
-                bags,
-                date,
-                time,
-                notes,
-                distance_km: km.toFixed(1),
-                duration_min: mins.toFixed(0),
-                vehicleType: type,
-                vehicleClass: cls,
-                price: finalPrice.toFixed(2),
-                createdAt: firebase.firestore.FieldValue.serverTimestamp()
-              })
-              .then(() => {
-                document.getElementById("confirmation").textContent =
-                  "Booking submitted successfully!";
-              })
-              .catch((err) => {
-                document.getElementById("confirmation").textContent =
-                  "Error saving booking: " + err.message;
-              });
-          } else {
-            alert("Could not calculate route. Please try again.");
-          }
-        }
-      );
-    }
-
+    // Update vehicle preview image
     function updateVehiclePreview() {
       const type = document.getElementById("vehicleType").value;
       const map = {
         sedan: "assets/sedan.png",
-        suv:   "assets/suv.png",
-        van:   "assets/van.png"
+        suv:   "assets/SUV.png",
+        van:   "assets/Van.png"
       };
-
-      document.getElementById("vehiclePreview").innerHTML = `
-        <img src="${map[type]}" alt="${type} preview" class="service-icon" />
-      `;
+      document.getElementById("vehiclePreview").innerHTML =
+        `<img src="${map[type]}" alt="${type} preview" class="service-icon" />`;
     }
-  </script>
+    document.getElementById("vehicleType")
+      .addEventListener("change", updateVehiclePreview);
+    updateVehiclePreview();
 
-  <!-- Collapse-nav toggle script -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const btn = document.querySelector('.nav-toggle');
-      const menu = document.querySelector('.nav.collapse-nav');
+    // Calculate route, price, and prepare bookingData
+    async function calculateRouteAndPrice() {
+      const pickup     = document.getElementById("pickup").value.trim();
+      const dropoff    = document.getElementById("dropoff").value.trim();
+      const passengers = +document.getElementById("passengers").value;
+      const bags       = +document.getElementById("bags").value;
+      const date       = document.getElementById("pickupDate").value;
+      const time       = document.getElementById("pickupTime").value;
+      const notes      = document.getElementById("notes").value.trim();
+      const flight     = document.getElementById("flight").value.trim();
+      const phone      = document.getElementById("phone").value.trim();
+      const email      = document.getElementById("email").value.trim();
+      const type       = document.getElementById("vehicleType").value;
+      const cls        = document.getElementById("vehicleClass").value;
 
-      if (!btn || !menu) {
-        console.error('Nav toggle or menu not found.');
+      if (!pickup || !dropoff || !date || !time || !flight || !phone || !email) {
+        alert("Please fill in all required fields.");
         return;
       }
 
+      directionsService.route({
+        origin:      pickup,
+        destination: dropoff,
+        travelMode:  "DRIVING"
+      }, (response, status) => {
+        if (status !== "OK") {
+          alert("Could not calculate route.");
+          return;
+        }
+        const leg  = response.routes[0].legs[0];
+        const km   = leg.distance.value / 1000;
+        const mins = leg.duration.value / 60;
+        document.getElementById("distance").value = km.toFixed(1);
+        document.getElementById("time").value     = mins.toFixed(0);
+
+        let rate = 1;
+        if (type === "suv")      rate += 0.5;
+        if (type === "van")      rate += 1.0;
+        if (cls  === "business") rate += 1.0;
+        if (cls  === "luxury")   rate += 2.0;
+
+        const rawPrice = (km * 1.5 + mins * 0.5) * rate * 1.2;
+        calculatedPrice = parseFloat(rawPrice.toFixed(2));
+        document.getElementById("price").textContent = calculatedPrice.toFixed(2);
+
+        bookingData = {
+          pickup, dropoff, passengers, bags, date, time, notes,
+          flightNumber: flight, phone, email,
+          distance_km: km.toFixed(1), duration_min: mins.toFixed(0),
+          vehicleType: type, vehicleClass: cls,
+          price: calculatedPrice
+        };
+      });
+    }
+
+    // Submit booking to Firestore
+    async function submitBookingToFirebase() {
+      if (!bookingData) {
+        alert("Please calculate price first.");
+        return;
+      }
+      const { addDoc, collection, serverTimestamp } =
+        await import("https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js");
+      const db = window.__DB__;
+      try {
+        await addDoc(collection(db, "bookings"), {
+          ...bookingData,
+          createdAt: serverTimestamp()
+        });
+        document.getElementById("confirmation").textContent =
+          "🎉 Booking submitted successfully!";
+      } catch (err) {
+        document.getElementById("confirmation").textContent =
+          "🚨 Error: " + err.message;
+      }
+    }
+
+    // Event listeners for buttons
+    document.getElementById("calcPriceBtn")
+      .addEventListener("click", calculateRouteAndPrice);
+
+    document.getElementById("stripeBtn")
+      .addEventListener("click", async () => {
+        await calculateRouteAndPrice();
+        await submitBookingToFirebase();
+      });
+
+    paypal.Buttons({
+      createOrder: async (data, actions) => {
+        await calculateRouteAndPrice();
+        return actions.order.create({
+          purchase_units: [{ amount: { value: calculatedPrice.toFixed(2) } }]
+        });
+      },
+      onApprove: async (data, actions) => {
+        await actions.order.capture();
+        await submitBookingToFirebase();
+      },
+      onError: (err) => {
+        document.getElementById("confirmation").textContent =
+          "❌ Payment failed: " + err.message;
+      }
+    }).render("#paypal-button-container");
+
+    // Collapse-nav toggle
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn = document.querySelector('.nav-toggle');
+      const menu = document.querySelector('.nav.collapse-nav');
       btn.addEventListener('click', () => {
         const isOpen = menu.classList.toggle('open');
         btn.setAttribute('aria-expanded', isOpen);
