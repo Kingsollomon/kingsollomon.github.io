@@ -355,10 +355,54 @@
     document.getElementById("calcPriceBtn")
       .addEventListener("click", calculateRouteAndPrice);
 
-    document.getElementById("stripeBtn")
+
+          async function handleStripePayment() {
+      if (!bookingData) {
+        alert("Please calculate price first.");
+        return;
+      }
+      const stripe = Stripe("pk_live_51LS5HMCqPVUOKHixGsgopn2FWl4rQvh0SIXiVq31W5XGNZmBl6grDzsCrJFWlGu6rGJ7yWrYnlrYysdx2QYDLXlK00DchzzRJo");
+      try {
+        const response = await fetch(
+          "/create-payment-intent",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              amount: Math.round(calculatedPrice * 100)
+            })
+          }
+        );
+        const { clientSecret } = await response.json();
+        const result = await stripe.confirmCardPayment(clientSecret, {
+          payment_method: {
+            card: { /* Use Stripe Elements in production */ },
+            billing_details: { email: bookingData.email }
+          }
+        });
+        if (result.error) {
+          document.getElementById("confirmation").textContent =
+            "❌ Payment failed: " + result.error.message;
+        } else if (result.paymentIntent.status === "succeeded") {
+          await submitBookingToFirebase();
+          document.getElementById("confirmation").textContent =
+            "🎉 Payment successful and booking saved!";
+        }
+      } catch (err) {
+        document.getElementById("confirmation").textContent =
+          "🚨 Error: " + err.message;
+      }
+    }
+
+    document
+      .getElementById("calcPriceBtn")
+      .addEventListener("click", calculateRouteAndPrice);
+
+    document
+      .getElementById("stripeBtn")
       .addEventListener("click", async () => {
         await calculateRouteAndPrice();
-        await submitBookingToFirebase();
+        await handleStripePayment();
       });
 
     paypal.Buttons({
